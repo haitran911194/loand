@@ -12825,6 +12825,8 @@ definitions:
         type: string
   cosmonaut.loan.loan.MsgApproveLoanResponse:
     type: object
+  cosmonaut.loan.loan.MsgRepayLoanResponse:
+    type: object
   cosmonaut.loan.loan.MsgRequestLoanResponse:
     type: object
   cosmonaut.loan.loan.Params:

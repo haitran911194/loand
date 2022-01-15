@@ -4,13 +4,15 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgRequestLoan } from "./types/loan/tx";
 import { MsgApproveLoan } from "./types/loan/tx";
+import { MsgRequestLoan } from "./types/loan/tx";
+import { MsgRepayLoan } from "./types/loan/tx";
 
 
 const types = [
-  ["/cosmonaut.loan.loan.MsgRequestLoan", MsgRequestLoan],
   ["/cosmonaut.loan.loan.MsgApproveLoan", MsgApproveLoan],
+  ["/cosmonaut.loan.loan.MsgRequestLoan", MsgRequestLoan],
+  ["/cosmonaut.loan.loan.MsgRepayLoan", MsgRepayLoan],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -43,8 +45,9 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgRequestLoan: (data: MsgRequestLoan): EncodeObject => ({ typeUrl: "/cosmonaut.loan.loan.MsgRequestLoan", value: MsgRequestLoan.fromPartial( data ) }),
     msgApproveLoan: (data: MsgApproveLoan): EncodeObject => ({ typeUrl: "/cosmonaut.loan.loan.MsgApproveLoan", value: MsgApproveLoan.fromPartial( data ) }),
+    msgRequestLoan: (data: MsgRequestLoan): EncodeObject => ({ typeUrl: "/cosmonaut.loan.loan.MsgRequestLoan", value: MsgRequestLoan.fromPartial( data ) }),
+    msgRepayLoan: (data: MsgRepayLoan): EncodeObject => ({ typeUrl: "/cosmonaut.loan.loan.MsgRepayLoan", value: MsgRepayLoan.fromPartial( data ) }),
     
   };
 };
